@@ -27,8 +27,8 @@ int is_smaller(const int* t1, const int* t2, int length) {
 }
 
 static int check_all(int n, int k, unrank_algo f) {
-  int* t1 = calloc(sizeof(int), k);
-  int* t2 = calloc(sizeof(int), k);
+  int* t1 = calloc(k, sizeof(int));
+  int* t2 = calloc(k, sizeof(int));
 
   mpz_t rank, binom;
   mpz_init_set_ui(rank, 0);
