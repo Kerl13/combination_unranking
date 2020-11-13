@@ -25,6 +25,7 @@ $(BUILD):
 # ---
 
 $(BUILD)libcombunrank.a: $(BUILD)recmeth.o
+$(BUILD)libcombunrank.a: $(BUILD)factoradics.o
 	ar rc $@ $?
 	ranlib $@
 

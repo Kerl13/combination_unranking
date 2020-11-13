@@ -73,11 +73,12 @@ static int check_all(int n, int k, unrank_algo f) {
 }
 
 int main() {
-  int N = 15;
+  int N = 10;
 
   for (int n = 1; n <= N; n++) {
     for (int k = 0; k <= n; k++) {
       assert(check_all(n, k, unrank_recursive_method) == 0);
+      assert(check_all(n, k, unrank_factoradics_fast) == 0);
     }
   }
 

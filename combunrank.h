@@ -5,5 +5,6 @@
 
 
 void unrank_recursive_method(int* dest, int n, int k, const mpz_t rank);
+void unrank_factoradics_fast(int* dest, int n, int k, const mpz_t rank);
 
 #endif
