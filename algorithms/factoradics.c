@@ -1,5 +1,4 @@
 #include <gmp.h>
-#include <malloc.h> // calloc
 #include <string.h> // bzero
 
 #include "../combunrank.h"
