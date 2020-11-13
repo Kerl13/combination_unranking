@@ -1,5 +1,5 @@
 .SUFFIXES:
-.PHONY: all clean test
+.PHONY: all clean test bench
 
 # Build tools and compiler flags
 CC     = cc
@@ -11,7 +11,15 @@ RANLIB = ranlib
 # Build directory
 BUILD = build/
 
-all: $(BUILD)libcombunrank.a
+all: $(BUILD)libcombunrank.a $(BUILD)unrank
+
+test: $(BUILD)tests/exhaustive
+test: $(BUILD)tests/exhaustive.done
+
+bench: $(BUILD)bench/k_varies
+bench: $(BUILD)bench/factoradics.dat
+bench: $(BUILD)bench/recmeth.dat
+bench: $(BUILD)bench/k_varies.svg
 
 clean:
 	rm -rf $(BUILD)
@@ -30,11 +38,15 @@ $(BUILD)%.o: algorithms/%.c combunrank.h
 	$(CC) $(CFLAGS) -o $@ -c $< $(LDLIBS)
 
 # ---
-# Test suite
+# Cmd line tool
 # ---
 
-test: $(BUILD)tests/exhaustive
-test: $(BUILD)tests/exhaustive.done
+$(BUILD)unrank: unrank.c $(BUILD)libcombunrank.a
+	$(CC) $(CFLAGS) -o $@ $< $(LDLIBS) -L$(BUILD) -lcombunrank
+
+# ---
+# Test suite
+# ---
 
 $(BUILD)tests/%.done: $(BUILD)tests/%
 	./$<
@@ -47,8 +59,6 @@ $(BUILD)tests/%: tests/%.c $(BUILD)libcombunrank.a
 # ---
 # Benchmarks
 # ---
-
-bench: $(BUILD)
 
 $(BUILD)bench/%: bench/%.c $(BUILD)libcombunrank.a
 	@[ -e "$(BUILD)bench" ] || mkdir -p "$(BUILD)bench"
