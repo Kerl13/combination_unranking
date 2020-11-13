@@ -72,13 +72,28 @@ static int check_all(int n, int k, unrank_algo f) {
   return 0;
 }
 
-int main() {
-  int N = 10;
+typedef void (*algo)(int*, int, int, const mpz_t);
+typedef struct pair {
+  char* name;
+  algo f;
+} pair;
 
-  for (int n = 1; n <= N; n++) {
-    for (int k = 0; k <= n; k++) {
-      assert(check_all(n, k, unrank_recursive_method) == 0);
-      assert(check_all(n, k, unrank_factoradics_fast) == 0);
+static const pair algos[] = {
+  {.name = "recursive_method", .f = unrank_recursive_method},
+  {.name = "recursive_method_naive", .f = unrank_recursive_method_naive},
+  {.name = "factoradics", .f = unrank_factoradics_fast},
+};
+
+int main() {
+  int N = 15;
+
+  for (unsigned int i = 0; i < sizeof(algos) / sizeof(pair); i++) {
+    algo algo = algos[i].f;
+    printf("Testing %s…\n", algos[i].name);
+    for (int n = 1; n <= N; n++) {
+      for (int k = 1; k <= n; k++) {
+        assert(check_all(n, k, algo) == 0);
+      }
     }
   }
 

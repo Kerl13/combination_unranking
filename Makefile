@@ -3,7 +3,7 @@
 
 # Build tools and compiler flags
 CC     = cc
-CFLAGS = -Wall -Wextra -pedantic
+CFLAGS = -Wall -Wextra -pedantic -g -O2
 LDLIBS = -lgmp
 AR 		 = ar
 RANLIB = ranlib
@@ -11,7 +11,7 @@ RANLIB = ranlib
 # Build directory
 BUILD = build/
 
-all: $(BUILD) $(BUILD)libcombunrank.a
+all: $(BUILD)libcombunrank.a
 
 clean:
 	rm -rf $(BUILD)
@@ -33,9 +33,10 @@ $(BUILD)%.o: algorithms/%.c combunrank.h
 # Test suite
 # ---
 
+test: $(BUILD)tests/exhaustive
 test: $(BUILD)tests/exhaustive.done
 
-$(BUILD)tests/%.done: $(BUILD)tests/% $(BUILD)tests
+$(BUILD)tests/%.done: $(BUILD)tests/%
 	./$<
 	touch $@
 
