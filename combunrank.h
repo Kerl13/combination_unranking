@@ -2,6 +2,7 @@
 #define _UNRANK_REC_METH
 
 #include <gmp.h> // mpz_*
+#include "src/internals.h"
 
 
 // Recursive method

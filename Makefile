@@ -32,12 +32,13 @@ clean:
 # libcombunrank static library
 # ---
 
+$(BUILD)libcombunrank.a: $(BUILD)interval_trees.o
 $(BUILD)libcombunrank.a: $(BUILD)recmeth.o
 $(BUILD)libcombunrank.a: $(BUILD)factoradics.o
 	ar rc $@ $?
 	ranlib $@
 
-$(BUILD)%.o: algorithms/%.c combunrank.h
+$(BUILD)%.o: src/%.c combunrank.h
 	@[ -e "$(BUILD)" ] || mkdir "$(BUILD)"
 	$(CC) $(CFLAGS) -o $@ -c $< $(LDLIBS)
 
