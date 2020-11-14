@@ -17,6 +17,8 @@ test: $(BUILD)tests/aux
 test: $(BUILD)tests/aux.done
 test: $(BUILD)tests/exhaustive
 test: $(BUILD)tests/exhaustive.done
+test: $(BUILD)tests/permutations
+test: $(BUILD)tests/permutations.done
 
 bench: $(BUILD)bench/k_varies
 bench: $(BUILD)bench/factoradics.dat
