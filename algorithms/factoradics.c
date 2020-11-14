@@ -4,8 +4,10 @@
 #include "../combunrank.h"
 
 
-void factoradic(int* dest, int len, const mpz_t u) {
+void factoradic_decomp(int* dest, int len, const mpz_t u) {
   bzero(dest, sizeof(int) * len);
+
+  if (mpz_sgn(u) == 0) return;
 
   // Invariant: fact = n!
   int n = len - 1;
@@ -27,10 +29,24 @@ void factoradic(int* dest, int len, const mpz_t u) {
   while (mpz_sgn(x) > 0) {
     mpz_tdiv_qr(f_n, x, x, fact);
     dest[n] = mpz_get_si(f_n);
+    mpz_divexact_ui(fact, fact, n);
     n--;
   }
 }
 
+void factoradic_recomp(mpz_t dest, int* dec, int len) {
+  mpz_t fac;
+  mpz_init_set_ui(fac, 1);
+
+  mpz_set_ui(dest, 0);
+
+  for (int i = 1; i < len; i++) {
+    mpz_mul_ui(fac, fac, i);
+    mpz_addmul_ui(dest, fac, dec[i]);
+  }
+
+  mpz_clear(fac);
+}
 
 void unrank_factoradics_fast(int* dest, int n, int k, const mpz_t rank) {
   mpz_t binom, r;

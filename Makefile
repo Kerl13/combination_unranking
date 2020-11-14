@@ -13,6 +13,8 @@ BUILD = build/
 
 all: $(BUILD)libcombunrank.a $(BUILD)unrank
 
+test: $(BUILD)tests/aux
+test: $(BUILD)tests/aux.done
 test: $(BUILD)tests/exhaustive
 test: $(BUILD)tests/exhaustive.done
 
@@ -50,7 +52,7 @@ $(BUILD)unrank: unrank.c $(BUILD)libcombunrank.a
 
 $(BUILD)tests/%.done: $(BUILD)tests/%
 	./$<
-	touch $@
+	@touch $@
 
 $(BUILD)tests/%: tests/%.c $(BUILD)libcombunrank.a
 	@[ -e "$(BUILD)test" ] || mkdir -p "$(BUILD)tests"
