@@ -1,4 +1,4 @@
-// Wee CLI tool to sample combinations
+// Wee command line tool to unrank combinations
 
 #include <string.h>
 #include <stdio.h>
