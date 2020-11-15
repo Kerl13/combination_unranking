@@ -60,7 +60,7 @@ typedef struct pair {
   algo f;
 } pair;
 static const pair algos[] = {
-  {.name = "factoradics", .f = unrank_factoradics_fast},
+  {.name = "factoradics", .f = unrank_factoradics},
   {.name = "recmeth", .f = unrank_recursive_method},
 };
 
