@@ -46,5 +46,6 @@ int main() {
   manual_tests();
   for (int n = 2; n <= N; n++) check_decomp_recomp(n);
 
+  printf("%s  OK\n", "↪");
   return 0;
 }

@@ -53,4 +53,7 @@ int main() {
   for (int n = 1; n <= N; n++) {
     assert(test(n) == 0);
   }
+
+  printf("%s  OK\n", "↪");
+  return 0;
 }

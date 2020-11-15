@@ -99,7 +99,7 @@ int main() {
 
   for (unsigned int i = 0; i < sizeof(algos) / sizeof(pair); i++) {
     algo algo = algos[i].f;
-    printf("Testing %s…\n", algos[i].name);
+    // printf("Testing %s…\n", algos[i].name);
     for (int n = 1; n <= N; n++) {
       for (int k = 1; k <= n; k++) {
         assert(check_all(n, k, algo) == 0);
@@ -107,5 +107,6 @@ int main() {
     }
   }
 
+  printf("%s  OK\n", "↪");
   return 0;
 }

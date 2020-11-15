@@ -12,6 +12,7 @@ RANLIB = ranlib
 BUILD = build/
 
 all: $(BUILD)libcombunrank.a $(BUILD)unrank
+	@echo Done: $^
 
 test: $(BUILD)tests/aux
 test: $(BUILD)tests/aux.done
@@ -24,6 +25,7 @@ bench: $(BUILD)bench/k_varies
 bench: $(BUILD)bench/factoradics.dat
 bench: $(BUILD)bench/recmeth.dat
 bench: $(BUILD)bench/k_varies.svg
+	@echo Done: $^
 
 clean:
 	rm -rf $(BUILD)
