@@ -91,6 +91,7 @@ static const pair algos[] = {
   {.name = "factoradics", .f = unrank_factoradics},
   {.name = "factoradics_naive", .f = unrank_factoradics_naive},
   {.name = "combinadics_naive", .f = unrank_combinadics_naive},
+  {.name = "combinadics_naive2", .f = unrank_combinadics_naive2},
 };
 
 int main() {

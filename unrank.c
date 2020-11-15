@@ -22,6 +22,7 @@ static const pair algorithms[] = {
   {.name = "factoradics", .func = unrank_factoradics},
   {.name = "factoradics_naive", .func = unrank_factoradics_naive},
   {.name = "combinadics_naive", .func = unrank_combinadics_naive},
+  {.name = "combinadics_naive2", .func = unrank_combinadics_naive2},
 };
 
 static algo get_algorithm(char name[]) {
