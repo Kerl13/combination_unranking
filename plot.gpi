@@ -4,9 +4,10 @@ files = system('cat') # read input files from stdin
 
 stats word(files, 1) using 1:2 nooutput
 phi(x) = - (x * log(x) + (1 - x) * log(1 - x))
+theoretical(x) = phi(x / (STATS_min_x + STATS_max_x)) * STATS_max_y / log(2)
 
 
 plot for [i=1:words(files)]\
        word(files, i) with lines lt i title word(files, i),\
-     f(x) = 2 * STATS_mean_y * phi(x / STATS_max_x), f(x)
+     theoretical(x) title "theoretical"
 

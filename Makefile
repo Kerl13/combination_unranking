@@ -22,8 +22,6 @@ test: $(BUILD)tests/permutations
 test: $(BUILD)tests/permutations.done
 
 bench: $(BUILD)bench/k_varies
-bench: $(BUILD)bench/factoradics.dat
-bench: $(BUILD)bench/recmeth.dat
 bench: $(BUILD)bench/k_varies.svg
 	@echo Done: $^
 
@@ -75,6 +73,5 @@ $(BUILD)bench/%: bench/%.c $(BUILD)libcombunrank.a
 $(BUILD)bench/%.dat: $(BUILD)bench/k_varies
 	$< $* > $@
 
-$(BUILD)bench/k_varies.svg: $(BUILD)bench/factoradics.dat
-$(BUILD)bench/k_varies.svg: $(BUILD)bench/recmeth.dat
-	echo "$^" | gnuplot -d plot.gpi > $@
+$(BUILD)bench/k_varies.svg: bench/k_varies.sh $(BUILD)bench/k_varies plot.gpi
+	$< factoradics recursive_method > $@
