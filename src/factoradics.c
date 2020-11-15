@@ -5,6 +5,9 @@
 
 #include "../combunrank.h"
 
+// ---
+// Factoradic numeral system
+// ---
 
 void factoradic_decomp(int* dest, int len, const mpz_t u) {
   bzero(dest, sizeof(int) * len);
@@ -64,7 +67,56 @@ void unrank_permutation(int* dest, int n, const mpz_t rank) {
   free(F);
 }
 
-void unrank_factoradics_fast(int* dest, int n, int k, const mpz_t rank) {
+// ---
+// Combination unranking based on factoradics
+// ---
+
+// Naive version: convert the combination rank into a well-chosen permutation
+// rank and unrank the permutation.
+
+static void rank_conversion(mpz_t dest, int n, int k, const mpz_t rank) {
+  mpz_t fac, u, b;
+
+  mpz_init(fac);
+  mpz_fac_ui(fac, n);
+  mpz_init(b);
+  mpz_init_set(u, rank);
+  mpz_set_ui(dest, 0);
+
+  int m = 0;
+  int i = 0;
+
+  while (i < k) {
+    mpz_bin_uiui(b, n - 1 - m, k - 1 - i);
+    if (mpz_cmp(u, b) < 0) {
+      mpz_divexact_ui(fac, fac, n);
+      mpz_addmul_ui(dest, fac, m);
+      i++;
+      n--;
+    } else {
+      mpz_sub(u, u, b);
+      m++;
+    }
+  }
+
+  mpz_clear(fac);
+  mpz_clear(u);
+  mpz_clear(b);
+}
+
+void unrank_factoradics_naive(int* dest, int n, int k, const mpz_t rank) {
+  mpz_t u;
+  mpz_init(u);
+  rank_conversion(u, n, k, rank);
+  int* F = calloc(n, sizeof(int));
+  factoradic_decomp(F, n, u);
+  extract(dest, F, n, k);
+  mpz_clear(u);
+  free(F);
+}
+
+// Optimized version
+void unrank_factoradics(int* dest, int n, int k, const mpz_t rank) {
   mpz_t binom, r;
   mpz_init_set(r, rank);
   mpz_init(binom);
