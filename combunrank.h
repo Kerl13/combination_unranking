@@ -16,4 +16,7 @@ void unrank_permutation(int* dest, int n, const mpz_t rank);
 void unrank_factoradics_naive(int* dest, int n, int k, const mpz_t rank);
 void unrank_factoradics(int* dest, int n, int k, const mpz_t rank);
 
+// Combinadic approach
+void unrank_combinadics_naive(int* dest, int n, int k, const mpz_t rank);
+
 #endif

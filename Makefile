@@ -35,6 +35,7 @@ clean:
 $(BUILD)libcombunrank.a: $(BUILD)interval_trees.o
 $(BUILD)libcombunrank.a: $(BUILD)recmeth.o
 $(BUILD)libcombunrank.a: $(BUILD)factoradics.o
+$(BUILD)libcombunrank.a: $(BUILD)combinadics.o
 	ar rc $@ $?
 	ranlib $@
 
