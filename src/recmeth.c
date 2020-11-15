@@ -75,4 +75,7 @@ void unrank_recursive_method(int* dest, int n, int k, const mpz_t rank) {
     dest[i] = j;
     j++;
   }
+
+  mpz_clear(r);
+  mpz_clear(binom);
 }

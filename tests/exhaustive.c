@@ -74,6 +74,7 @@ static int check_all(int n, int k, unrank_algo f) {
 
   free(t1);
   free(t2);
+  mpz_clears(rank, binom, NULL);
 
   return 0;
 }
