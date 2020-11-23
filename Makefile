@@ -66,9 +66,9 @@ $(BUILD)tests/%: tests/%.c $(BUILD)libcombunrank.a
 # Benchmarks
 # ---
 
-$(BUILD)bench/%: bench/%.c $(BUILD)libcombunrank.a
+$(BUILD)bench/%: bench/%.c bench/utils.c $(BUILD)libcombunrank.a
 	@[ -e "$(BUILD)bench" ] || mkdir -p "$(BUILD)bench"
-	$(CC) $(CFLAGS) -o $@ $< $(LDLIBS) -L$(BUILD) -lcombunrank
+	$(CC) $(CFLAGS) -o $@ $< bench/utils.c $(LDLIBS) -L$(BUILD) -lcombunrank
 
 $(BUILD)bench/%.dat: $(BUILD)bench/k_varies
 	$< $* > $@
