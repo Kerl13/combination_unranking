@@ -135,19 +135,21 @@ void unrank_factoradics(int* dest, int n, int k, const mpz_t rank) {
   int m = 0;
   int i = 0;
 
-  while (i < k) {
-    mpz_divexact_ui(binom, binom, n - m);
+  while (i < k - 1) {
+    // Invariant:
+    // binom = binomial(n - m - i - 1, k - i - 1) * (n - m - i)
+    mpz_divexact_ui(binom, binom, n - m - i);
     if (mpz_cmp(binom, r) > 0) {
       dest[i] = m + i;
       mpz_mul_ui(binom, binom, k - i - 1);
       i++;
-      n--;
     } else {
       mpz_sub(r, r, binom);
-      mpz_mul_ui(binom, binom, n - m - k + i);
+      mpz_mul_ui(binom, binom, n - m - k);
       m++;
     }
   }
+  if (k > 0) dest[k - 1] = n + mpz_get_si(r) - mpz_get_si(binom);
 
   mpz_clear(r);
   mpz_clear(binom);
