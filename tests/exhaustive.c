@@ -87,6 +87,7 @@ typedef struct pair {
 
 static const pair algos[] = {
   {.name = "recursive_method", .f = unrank_recursive_method},
+  {.name = "recursive_method_tr", .f = unrank_recursive_method_tr},
   {.name = "recursive_method_naive", .f = unrank_recursive_method_naive},
   {.name = "factoradics", .f = unrank_factoradics},
   {.name = "factoradics_naive", .f = unrank_factoradics_naive},

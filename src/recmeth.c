@@ -42,6 +42,37 @@ void unrank_recursive_method_naive(int* dest, int n, int k, const mpz_t rank) {
   mpz_clear(r);
 }
 
+static void _aux_tr(int* dest, int m, int n, int k, mpz_t r, mpz_t b) {
+  if (k == 0) return;
+
+  if (k == n) {
+    for (int i = 0; i < k; i++) dest[i] = m + i;
+    return;
+  }
+
+  mpz_divexact_ui(b, b, n);
+  if (mpz_cmp(r, b) < 0) {
+    *dest = m;
+    mpz_mul_ui(b, b, k - 1);
+    _aux_tr(dest + 1, m + 1, n - 1, k - 1, r, b);
+  } else {
+    mpz_sub(r, r, b);
+    mpz_mul_ui(b, b, n - k);
+    _aux_tr(dest, m + 1, n - 1, k, r, b);
+  }
+}
+
+void unrank_recursive_method_tr(int* dest, int n, int k, const mpz_t rank) {
+  mpz_t b, r;
+  mpz_init_set(r, rank);
+  mpz_init(b);
+  mpz_bin_uiui(b, n - 1, k - 1);
+  mpz_mul_ui(b, b, n);
+
+  _aux_tr(dest, 0, n, k, r, b);
+
+  mpz_clears(b, r, NULL);
+}
 
 void unrank_recursive_method(int* dest, int n, int k, const mpz_t rank) {
   mpz_t binom, r;

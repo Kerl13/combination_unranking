@@ -7,6 +7,7 @@
 
 // Recursive method
 void unrank_recursive_method_naive(int* dest, int n, int k, const mpz_t rank);
+void unrank_recursive_method_tr(int* dest, int n, int k, const mpz_t rank);
 void unrank_recursive_method(int* dest, int n, int k, const mpz_t rank);
 
 // Factoradic approach
