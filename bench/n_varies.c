@@ -8,22 +8,24 @@
 #include "utils.h"
 
 
-static void run(FILE* fd, gmp_randstate_t s, unrank_algo_t f, int n, int step, int repeat) {
+static void run(FILE* fd, gmp_randstate_t s, unrank_algo_t f,
+                int N, int step, int repeat) {
   // Allocate the destination array once and for all with enough
   // space for all the possible values of k.
-  int* dest = calloc(n, sizeof(int));
+  int* dest = calloc(N, sizeof(int));
 
   mpz_t* ranks = calloc(repeat, sizeof(mpz_t));
   for (int i = 0; i < repeat; i++) mpz_init(ranks[i]);
 
-  for (int k = step; k < n; k += step) {
+  for (int n = step; n < N; n += step) {
+    const int k = n / 2;
     get_random_ranks(ranks, s, n, k, repeat);
 
-    clock_t pre = clock();
+    const clock_t pre = clock();
     for (int i = 0; i < repeat; i++) {
       f(dest, n, k, ranks[i]);
     }
-    clock_t post = clock();
+    const clock_t post = clock();
 
     fprintf(fd, "%d %lf\n", k, (double)(post - pre) / CLOCKS_PER_SEC);
   }

@@ -9,5 +9,5 @@ theoretical(x) = phi(x / (STATS_min_x + STATS_max_x)) * STATS_max_y / log(2)
 
 plot for [i=1:words(files)]\
        word(files, i) with lines lt i title word(files, i),\
-     theoretical(x) title "theoretical"
+     # theoretical(x) title "theoretical"
 

@@ -11,9 +11,9 @@ if [ "$#" = 0 ]; then
 fi >&2
 
 for name in "$@"; do
-  make "${BUILD}bench/$name.k.dat"
+  make "${BUILD}bench/$name.n.dat"
 done >&2
 
 { for name in "$@"; do
-    printf '%sbench/%s.k.dat ' "$BUILD" "$name"
+    printf '%sbench/%s.n.dat ' "$BUILD" "$name"
   done } | gnuplot -d plot.gpi

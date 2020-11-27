@@ -6,5 +6,7 @@
 typedef void (*algo)(int*, int, int, const mpz_t);
 
 void get_random_ranks(mpz_t*, gmp_randstate_t, int n, int k, int nb);
+int usage(char progname[]);
+int find_algo(char algo_name[]);
 
 #endif
