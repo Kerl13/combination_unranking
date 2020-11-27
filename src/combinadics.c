@@ -49,8 +49,7 @@ void unrank_combinadics(int* dest, int n, int k, const mpz_t rank) {
     while (mpz_cmp(u, bin) < 0) {
       // Invariant: bin = binomial(v, k - i)
       mpz_mul_ui(bin, bin, v - k + i);
-      if (v > 0) mpz_divexact_ui(bin, bin, v);
-      else mpz_set_ui(bin, 0);
+      mpz_divexact_ui(bin, bin, v);
       v--;
     }
     mpz_sub(u, u, bin);
