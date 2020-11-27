@@ -11,6 +11,8 @@ RANLIB = ranlib
 # Build directory
 BUILD = build/
 
+HDR = combunrank.h src/internals.h
+
 all: $(BUILD)libcombunrank.a $(BUILD)unrank
 	@echo Done: $^
 
@@ -36,10 +38,11 @@ $(BUILD)libcombunrank.a: $(BUILD)interval_trees.o
 $(BUILD)libcombunrank.a: $(BUILD)recmeth.o
 $(BUILD)libcombunrank.a: $(BUILD)factoradics.o
 $(BUILD)libcombunrank.a: $(BUILD)combinadics.o
+$(BUILD)libcombunrank.a: $(BUILD)algo_list.o
 	ar rc $@ $?
 	ranlib $@
 
-$(BUILD)%.o: src/%.c combunrank.h
+$(BUILD)%.o: src/%.c $(HDR)
 	@[ -e "$(BUILD)" ] || mkdir "$(BUILD)"
 	$(CC) $(CFLAGS) -o $@ -c $< $(LDLIBS)
 

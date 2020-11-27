@@ -35,31 +35,17 @@ void run(FILE* fd, gmp_randstate_t s, algo f, int n, int step, int repeat) {
   free(ranks);
 }
 
-
-typedef struct pair {
-  char* name;
-  algo f;
-} pair;
-static const pair algos[] = {
-  {.name = "recursive_method", .f = unrank_recursive_method},
-  {.name = "recursive_method_tr", .f = unrank_recursive_method_tr},
-  {.name = "recursive_method_naive", .f = unrank_recursive_method_naive},
-  {.name = "factoradics", .f = unrank_factoradics},
-  {.name = "factoradics_naive", .f = unrank_factoradics_naive},
-  {.name = "combinadics_naive", .f = unrank_combinadics_naive},
-  {.name = "combinadics_naive2", .f = unrank_combinadics_naive2},
-};
+const unsigned int nb_algos = sizeof(unrank_algo_list) / sizeof(name_algo_pair);
 
 int usage(char progname[]) {
   fprintf(stderr, "usage: %s ALGO\n", progname);
   fprintf(stderr, "ALGO:  algorithm to benchmark, possible values:");
 
-  const unsigned int nb = sizeof(algos) / sizeof(pair);
-  for (unsigned int i = 0; i < nb; i++) {
+  for (unsigned int i = 0; i < nb_algos; i++) {
     if (i % 3 == 0) fprintf(stderr, "\n       ");
     else fprintf(stderr, " ");
-    fprintf(stderr, "%s", algos[i].name);
-    if (i < nb - 1) fprintf(stderr, ",");
+    fprintf(stderr, "%s", unrank_algo_list[i].name);
+    if (i < nb_algos - 1) fprintf(stderr, ",");
   }
   fprintf(stderr, "\n");
 
@@ -67,8 +53,8 @@ int usage(char progname[]) {
 }
 
 int find_algo(char name[]) {
-  for (unsigned int i = 0; i < sizeof(algos) / sizeof(pair); i++) {
-    if (strcmp(name, algos[i].name) == 0)
+  for (unsigned int i = 0; i < nb_algos; i++) {
+    if (strcmp(name, unrank_algo_list[i].name) == 0)
       return i;
   }
   return -1;
@@ -83,7 +69,7 @@ int main(int argc, char* argv[]) {
     fprintf(stderr, "Unknown algorithm: %s\n", argv[1]);
     return usage(argv[0]);
   }
-  algo algo = algos[i].f;
+  algo algo = unrank_algo_list[i].func;
 
   // Initialise the RNG
   gmp_randstate_t state;

@@ -8,30 +8,15 @@
 #include <gmp.h>
 #include "combunrank.h"
 
-typedef void (*algo)(int*, int, int, const mpz_t);
 
-typedef struct {
-  char* name;
-  algo func;
-} pair;
+static const unsigned int nb_algos =
+  sizeof(unrank_algo_list) / sizeof(name_algo_pair);
 
-
-static const pair algorithms[] = {
-  {.name = "recursive_method", .func = unrank_recursive_method},
-  {.name = "recursive_method_tr", .func = unrank_recursive_method_tr},
-  {.name = "recursive_method_naive", .func = unrank_recursive_method_naive},
-  {.name = "factoradics", .func = unrank_factoradics},
-  {.name = "factoradics_naive", .func = unrank_factoradics_naive},
-  {.name = "combinadics_naive", .func = unrank_combinadics_naive},
-  {.name = "combinadics_naive2", .func = unrank_combinadics_naive2},
-};
-
-static algo get_algorithm(char name[]) {
-  for (unsigned int i = 0; i < sizeof(algorithms) / sizeof(pair); i++) {
-    if (strcmp(algorithms[i].name, name) == 0)
-      return algorithms[i].func;
+static unrank_algo_t get_algorithm(char name[]) {
+  for (unsigned int i = 0; i < nb_algos; i++) {
+    if (strcmp(unrank_algo_list[i].name, name) == 0)
+      return unrank_algo_list[i].func;
   }
-
   return NULL;
 }
 
@@ -56,20 +41,19 @@ typedef struct {
   char* algo;
 } cli_options;
 
-int usage(char progname[]) {
+static int usage(char progname[]) {
   fprintf(stderr, "usage: %s -n N -k K [-r RANK] [-a ALGORITHM]\n", progname);
   fprintf(stderr, "unrank the (N, K)-combination number RANK in lexicographic order\n");
   fprintf(stderr, "  -r RANK       the rank of the combination, if set to -1 unrank all\n"
                   "                combination in lexicographic order (defaults to -1)\n");
   fprintf(stderr, "  -a ALGORITHM  the unranking algorithm to be used, possible values are:\n"
                   "                ");
-  const unsigned int nb = sizeof(algorithms) / sizeof(pair);
-  for (unsigned int i = 0; i < nb - 1; i++) {
-    fprintf(stderr, "%s,", algorithms[i].name);
+  for (unsigned int i = 0; i < nb_algos - 1; i++) {
+    fprintf(stderr, "%s,", unrank_algo_list[i].name);
     if (i % 3 == 2) fprintf(stderr, "\n                ");
     else fprintf(stderr, " ");
   }
-  fprintf(stderr, "%s\n", algorithms[nb - 1].name);
+  fprintf(stderr, "%s\n", unrank_algo_list[nb_algos - 1].name);
 
   return 1;
 }
@@ -90,7 +74,7 @@ static int parse_pos_int(char varname, char* s) {
 }
 
 
-cli_options cli_parse(int argc, char* argv[]) {
+static cli_options cli_parse(int argc, char* argv[]) {
   cli_options opts;
   mpz_init_set_si(opts.rank, -1);
   opts.n = -1;
@@ -155,7 +139,7 @@ int main(int argc, char* argv[]) {
   }
 
   // Select the algorithm
-  algo algo = get_algorithm(opts.algo);
+  unrank_algo_t algo = get_algorithm(opts.algo);
   if (algo == NULL) {
     fprintf(stderr, "error: unknown algorithm %s\n", opts.algo);
     return usage(argv[0]);
