@@ -31,7 +31,37 @@ void unrank_combinadics_naive(int* dest, int n, int k, const mpz_t rank) {
   mpz_clear(b);
 }
 
-void unrank_combinadics_naive2(int* dest, int n, int k, const mpz_t rank) {
+void unrank_combinadics(int* dest, int n, int k, const mpz_t rank) {
+  mpz_t u, bin;
+  mpz_inits(u, bin, NULL);
+  mpz_bin_uiui(bin, n, k);
+  mpz_set(u, bin);
+  mpz_sub_ui(u, u, 1);
+  mpz_sub(u, u, rank);
+
+  mpz_mul_ui(bin, bin, n - k);
+  int v = n;
+
+  for (int i = 0; i < k; i++) {
+    // Invariant: bin = v * binomial(v - 1, k - i)
+    mpz_divexact_ui(bin, bin, v);
+    v--;
+    while (mpz_cmp(u, bin) < 0) {
+      // Invariant: bin = binomial(v, k - i)
+      mpz_mul_ui(bin, bin, v - k + i);
+      if (v > 0) mpz_divexact_ui(bin, bin, v);
+      else mpz_set_ui(bin, 0);
+      v--;
+    }
+    mpz_sub(u, u, bin);
+    dest[i] = n - 1 - v;
+    mpz_mul_ui(bin, bin, k - i);
+  }
+
+  mpz_clears(u, bin, NULL);
+}
+
+void unrank_combinadics2_naive(int* dest, int n, int k, const mpz_t rank) {
   mpz_t r, b;
   mpz_init(r);
   mpz_init(b);
