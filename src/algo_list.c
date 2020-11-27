@@ -8,5 +8,6 @@ const name_algo_pair unrank_algo_list[] = {
   {.name = "factoradics", .func = unrank_factoradics},
   {.name = "factoradics_naive", .func = unrank_factoradics_naive},
   {.name = "combinadics_naive", .func = unrank_combinadics_naive},
-  {.name = "combinadics_naive2", .func = unrank_combinadics_naive2},
+  {.name = "combinadics", .func = unrank_combinadics},
+  {.name = "combinadics2_naive", .func = unrank_combinadics2_naive},
 };

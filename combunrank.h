@@ -27,6 +27,6 @@ typedef struct name_algo_pair_s {
   char* name;
   unrank_algo_t func;
 } name_algo_pair;
-extern const name_algo_pair unrank_algo_list[10];
+extern const name_algo_pair unrank_algo_list[8];
 
 #endif

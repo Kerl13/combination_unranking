@@ -9,14 +9,14 @@
 // The type of combination unranking algorithms
 typedef void (*unrank_algo)(int*, int, int, const mpz_t);
 
-int is_valid_combination(const int* combi, int n, int k) {
+static int is_valid_combination(const int* combi, int n, int k) {
   for (int i = 0; i < k - 1; i++) {
     if (combi[i] >= combi[i + 1]) return 0;
   }
   return (combi[0] >= 0) && (combi[k - 1] < n);
 }
 
-int is_smaller(const int* t1, const int* t2, int length) {
+static int is_smaller(const int* t1, const int* t2, int length) {
   for (int i = 0; i < length; i++) {
     if (t1[i] < t2[i]) return 1;
     if (t1[i] > t2[i]) return 0;
@@ -26,7 +26,7 @@ int is_smaller(const int* t1, const int* t2, int length) {
   return 0;
 }
 
-void print_combination(FILE* fd, const int* comb, int len) {
+static void print_combination(FILE* fd, const int* comb, int len) {
   for (int i = 0; i < len - 1; i++) {
     fprintf(fd, "%d, ", comb[i]);
   }
@@ -79,28 +79,13 @@ static int check_all(int n, int k, unrank_algo f) {
   return 0;
 }
 
-typedef void (*algo)(int*, int, int, const mpz_t);
-typedef struct pair {
-  char* name;
-  algo f;
-} pair;
-
-static const pair algos[] = {
-  {.name = "recursive_method", .f = unrank_recursive_method},
-  {.name = "recursive_method_tr", .f = unrank_recursive_method_tr},
-  {.name = "recursive_method_naive", .f = unrank_recursive_method_naive},
-  {.name = "factoradics", .f = unrank_factoradics},
-  {.name = "factoradics_naive", .f = unrank_factoradics_naive},
-  {.name = "combinadics_naive", .f = unrank_combinadics_naive},
-  {.name = "combinadics_naive2", .f = unrank_combinadics_naive2},
-};
-
 int main() {
   int N = 15;
 
-  for (unsigned int i = 0; i < sizeof(algos) / sizeof(pair); i++) {
-    algo algo = algos[i].f;
-    // printf("Testing %s…\n", algos[i].name);
+  const unsigned int nb = sizeof(unrank_algo_list) / sizeof(name_algo_pair);
+  for (unsigned int i = 0; i < nb; i++) {
+    unrank_algo_t algo = unrank_algo_list[i].func;
+    printf("Testing %s…\n", unrank_algo_list[i].name);
     for (int n = 1; n <= N; n++) {
       for (int k = 1; k <= n; k++) {
         assert(check_all(n, k, algo) == 0);

@@ -4,7 +4,7 @@
 #include "../combunrank.h"
 
 
-void manual_tests() {
+static void manual_tests() {
   mpz_t rank;
   mpz_init_set_ui(rank, 2021);
   int expected[] = {0, 1, 2, 0, 4, 4, 2};
@@ -23,7 +23,7 @@ void manual_tests() {
   mpz_clear(rank);
 }
 
-void check_decomp_recomp(int n) {
+static void check_decomp_recomp(int n) {
   mpz_t rank, tmp, fac;
   mpz_inits(rank, tmp, fac, NULL);
   mpz_fac_ui(fac, n);

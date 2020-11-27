@@ -3,7 +3,7 @@
 #include <gmp.h>
 #include "../combunrank.h"
 
-int is_smaller(const int* p1, const int* p2, int n) {
+static int is_smaller(const int* p1, const int* p2, int n) {
   for (int i = 0; i < n; i++) {
     if (p1[i] < p2[i]) return 1;
     else if (p1[i] > p2[i]) return 0;
@@ -11,14 +11,14 @@ int is_smaller(const int* p1, const int* p2, int n) {
   return 0;
 }
 
-int is_valid(const int* p, int n) {
+static int is_valid(const int* p, int n) {
   for (int i = 0; i < n; i++) {
     if (p[i] < 0 || p[i] >= n) return 0;
   }
   return 1;
 }
 
-int test(int n) {
+static int test(int n) {
   mpz_t rank, fac;
   mpz_init(rank);
   mpz_init(fac);
