@@ -10,7 +10,7 @@
 
 typedef void (*algo)(int*, int, int, const mpz_t);
 
-void run(FILE* fd, gmp_randstate_t s, algo f, int n, int step, int repeat) {
+static void run(FILE* fd, gmp_randstate_t s, algo f, int n, int step, int repeat) {
   // Allocate the destination array once and for all with enough
   // space for all the possible values of k.
   int* dest = calloc(n, sizeof(int));
@@ -35,9 +35,9 @@ void run(FILE* fd, gmp_randstate_t s, algo f, int n, int step, int repeat) {
   free(ranks);
 }
 
-const unsigned int nb_algos = sizeof(unrank_algo_list) / sizeof(name_algo_pair);
+static const unsigned int nb_algos = sizeof(unrank_algo_list) / sizeof(name_algo_pair);
 
-int usage(char progname[]) {
+static int usage(char progname[]) {
   fprintf(stderr, "usage: %s ALGO\n", progname);
   fprintf(stderr, "ALGO:  algorithm to benchmark, possible values:");
 
@@ -52,7 +52,7 @@ int usage(char progname[]) {
   return 1;
 }
 
-int find_algo(char name[]) {
+static int find_algo(char name[]) {
   for (unsigned int i = 0; i < nb_algos; i++) {
     if (strcmp(name, unrank_algo_list[i].name) == 0)
       return i;

@@ -4,7 +4,7 @@
 // The "textbook" recursive method.
 // This function generates combinations in co-lexicographic order and is
 // purposely *not* tail-recursive to show the stack explosion
-void _unrank_recursive_method_naive(int* dest, int n, int k, mpz_t rank) {
+static void _unrank_recursive_method_naive(int* dest, int n, int k, mpz_t rank) {
   // Base case 1: the empty subset
   if (k == 0) return;
 

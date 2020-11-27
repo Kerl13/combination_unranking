@@ -3,7 +3,7 @@
 
 # Build tools and compiler flags
 CC     = cc
-CFLAGS = -Wall -Wextra -pedantic -g -O2
+CFLAGS = -Wall -Wextra -pedantic -Wmissing-prototypes -g -O2
 LDLIBS = -lgmp
 AR 		 = ar
 RANLIB = ranlib

@@ -1,7 +1,7 @@
 #include "../combunrank.h"
 
 
-const name_algo_pair unrank_algo_list_typo[] = {
+const name_algo_pair unrank_algo_list[] = {
   {.name = "recursive_method", .func = unrank_recursive_method},
   {.name = "recursive_method_tr", .func = unrank_recursive_method_tr},
   {.name = "recursive_method_naive", .func = unrank_recursive_method_naive},

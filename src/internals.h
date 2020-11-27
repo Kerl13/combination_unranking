@@ -16,6 +16,7 @@ typedef struct tree_s {
 tree* tree_make(int min, int max);
 void tree_clear(tree*);
 void print_tree(FILE*, const tree*);
+void tree_print(FILE*, const tree*);
 int tree_pop(tree*, int);
 
 #endif

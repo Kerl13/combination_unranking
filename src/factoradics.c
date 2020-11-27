@@ -61,7 +61,7 @@ void factoradic_recomp(mpz_t dest, int* dec, int len) {
 // Permutation unranking
 // ---
 
-void extract(int* dest, const int* F, int n, int k) {
+static void extract(int* dest, const int* F, int n, int k) {
   tree* P = tree_make(0, n - 1);
   for (int i = 0; i < k; i++) {
     dest[i] = tree_pop(P, F[n - 1 - i]);
