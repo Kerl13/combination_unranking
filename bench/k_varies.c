@@ -42,6 +42,7 @@ typedef struct pair {
 } pair;
 static const pair algos[] = {
   {.name = "recursive_method", .f = unrank_recursive_method},
+  {.name = "recursive_method_tr", .f = unrank_recursive_method_tr},
   {.name = "recursive_method_naive", .f = unrank_recursive_method_naive},
   {.name = "factoradics", .f = unrank_factoradics},
   {.name = "factoradics_naive", .f = unrank_factoradics_naive},
@@ -90,7 +91,7 @@ int main(int argc, char* argv[]) {
   gmp_randseed_ui(state, 0x9244ce618857cb76L);
 
   // Bench!
-  run(stdout, state, algo, 10000, 500, 500);
+  run(stdout, state, algo, 10000, 250, 500);
 
   return 0;
 }
