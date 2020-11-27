@@ -1,5 +1,5 @@
 #include <gmp.h>
-#include <string.h> // bzero
+#include <string.h> // memset
 #include <malloc.h>
 #include <assert.h>
 
@@ -10,7 +10,7 @@
 // ---
 
 void factoradic_decomp(int* dest, int len, const mpz_t u) {
-  bzero(dest, sizeof(int) * len);
+  memset(dest, 0, sizeof(int) * len);
 
   if (mpz_sgn(u) == 0) return;
 

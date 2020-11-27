@@ -3,7 +3,7 @@
 
 # Build tools and compiler flags
 CC     = cc
-CFLAGS = -Wall -Wextra -pedantic -Wmissing-prototypes -g -O2
+CFLAGS = -Wall -Wextra -pedantic -Wmissing-prototypes -g -O2 -std=c11
 LDLIBS = -lgmp
 AR 		 = ar
 RANLIB = ranlib
@@ -52,7 +52,7 @@ $(BUILD)%.o: src/%.c $(HDR)
 # ---
 
 $(BUILD)unrank: unrank.c $(BUILD)libcombunrank.a
-	$(CC) $(CFLAGS) -o $@ $< $(LDLIBS) -L$(BUILD) -lcombunrank
+	$(CC) $(CFLAGS) -std=gnu11 -o $@ $< $(LDLIBS) -L$(BUILD) -lcombunrank
 
 # ---
 # Test suite
