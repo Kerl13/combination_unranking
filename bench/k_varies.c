@@ -8,9 +8,7 @@
 #include "utils.h"
 
 
-typedef void (*algo)(int*, int, int, const mpz_t);
-
-static void run(FILE* fd, gmp_randstate_t s, algo f, int n, int step, int repeat) {
+static void run(FILE* fd, gmp_randstate_t s, unrank_algo_t f, int n, int step, int repeat) {
   // Allocate the destination array once and for all with enough
   // space for all the possible values of k.
   int* dest = calloc(n, sizeof(int));
