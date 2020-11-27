@@ -17,8 +17,9 @@ void unrank_factoradics_naive(int* dest, int n, int k, const mpz_t rank);
 void unrank_factoradics(int* dest, int n, int k, const mpz_t rank);
 
 // Combinadic approach
-void unrank_combinadics_naive(int* dest, int n, int k, const mpz_t rank);
 void unrank_combinadics(int* dest, int n, int k, const mpz_t rank);
+void unrank_combinadics_naive(int* dest, int n, int k, const mpz_t rank);
+void unrank_combinadics2(int* dest, int n, int k, const mpz_t rank);
 void unrank_combinadics2_naive(int* dest, int n, int k, const mpz_t rank);
 
 // The list of all algorithms
@@ -27,6 +28,6 @@ typedef struct name_algo_pair_s {
   char* name;
   unrank_algo_t func;
 } name_algo_pair;
-extern const name_algo_pair unrank_algo_list[8];
+extern const name_algo_pair unrank_algo_list[9];
 
 #endif
