@@ -39,12 +39,11 @@ int main(int argc, char* argv[]) {
   if (argc != 2) return usage(argv[0]);
 
   // Choose which algorithm to benchmark
-  int i = find_algo(argv[1]);
-  if (i == -1) {
+  unrank_algo_t algo = find_algo(argv[1]);
+  if (algo == NULL) {
     fprintf(stderr, "Unknown algorithm: %s\n", argv[1]);
     return usage(argv[0]);
   }
-  algo algo = unrank_algo_list[i].func;
 
   // Initialise the RNG
   gmp_randstate_t state;

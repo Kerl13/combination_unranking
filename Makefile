@@ -70,18 +70,4 @@ $(BUILD)tests/%: tests/%.c $(BUILD)libcombunrank.a
 # Benchmarks
 # ---
 
-$(BUILD)bench/%: bench/%.c bench/utils.c bench/utils.h $(BUILD)libcombunrank.a
-	@[ -e "$(BUILD)bench" ] || mkdir -p "$(BUILD)bench"
-	$(CC) $(CFLAGS) -o $@ $< bench/utils.c $(LDLIBS) -L$(BUILD) -lcombunrank
-
-$(BUILD)bench/%.k.dat: $(BUILD)bench/k_varies
-	$< $* > $@
-
-$(BUILD)bench/k_varies.svg: bench/k_varies.sh $(BUILD)bench/k_varies plot.gpi
-	$< factoradics recursive_method > $@
-
-$(BUILD)bench/%.n.dat: $(BUILD)bench/n_varies
-	$< $* > $@
-
-$(BUILD)bench/n_varies.svg: bench/n_varies.sh $(BUILD)bench/k_varies plot.gpi
-	$< factoradics recursive_method > $@
+include bench/bench.mk

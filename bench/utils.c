@@ -35,10 +35,10 @@ int usage(char progname[]) {
   return 1;
 }
 
-int find_algo(char name[]) {
-  for (unsigned int i = 0; i < nb_algos; i++) {
+unrank_algo_t find_algo(char name[]) {
+ for (unsigned int i = 0; i < nb_algos; i++) {
     if (strcmp(name, unrank_algo_list[i].name) == 0)
-      return i;
+      return unrank_algo_list[i].func;
   }
-  return -1;
+  return NULL;
 }
