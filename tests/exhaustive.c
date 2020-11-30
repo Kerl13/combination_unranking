@@ -86,6 +86,7 @@ int main() {
   for (unsigned int i = 0; i < nb; i++) {
     unrank_algo_t algo = unrank_algo_list[i].func;
     printf("Testing %s…\n", unrank_algo_list[i].name);
+    fflush(stdout);
     for (int n = 1; n <= N; n++) {
       for (int k = 1; k <= n; k++) {
         assert(check_all(n, k, algo) == 0);

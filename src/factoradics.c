@@ -113,7 +113,7 @@ static void rank_conversion(mpz_t dest, int n, int k, const mpz_t rank) {
   mpz_clear(b);
 }
 
-void unrank_factoradics_naive(int* dest, int n, int k, const mpz_t rank) {
+void unrank_factoradics_supernaive(int* dest, int n, int k, const mpz_t rank) {
   mpz_t u;
   mpz_init(u);
   rank_conversion(u, n, k, rank);
@@ -122,6 +122,31 @@ void unrank_factoradics_naive(int* dest, int n, int k, const mpz_t rank) {
   extract(dest, F, n, k);
   mpz_clear(u);
   free(F);
+}
+
+void unrank_factoradics_naive(int* dest, int n, int k, const mpz_t rank) {
+  mpz_t u, b;
+
+  mpz_init(b);
+  mpz_init_set(u, rank);
+
+  int m = 0;
+  int i = 0;
+
+  while (i < k) {
+    mpz_bin_uiui(b, n - 1 - m, k - 1 - i);
+    if (mpz_cmp(u, b) < 0) {
+      dest[i] = m + i;
+      i++;
+      n--;
+    } else {
+      mpz_sub(u, u, b);
+      m++;
+    }
+  }
+
+  mpz_clear(u);
+  mpz_clear(b);
 }
 
 // Optimized version

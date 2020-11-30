@@ -13,6 +13,7 @@ void unrank_recursive_method(int* dest, int n, int k, const mpz_t rank);
 void factoradic_decomp(int* dest, int len, const mpz_t rank);
 void factoradic_recomp(mpz_t dest, int* dec, int len);
 void unrank_permutation(int* dest, int n, const mpz_t rank);
+void unrank_factoradics_supernaive(int* dest, int n, int k, const mpz_t rank);
 void unrank_factoradics_naive(int* dest, int n, int k, const mpz_t rank);
 void unrank_factoradics(int* dest, int n, int k, const mpz_t rank);
 
@@ -28,6 +29,6 @@ typedef struct name_algo_pair_s {
   char* name;
   unrank_algo_t func;
 } name_algo_pair;
-extern const name_algo_pair unrank_algo_list[9];
+extern const name_algo_pair unrank_algo_list[10];
 
 #endif
