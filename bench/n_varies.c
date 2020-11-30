@@ -27,7 +27,7 @@ static void run(FILE* fd, gmp_randstate_t s, unrank_algo_t f,
     }
     const clock_t post = clock();
 
-    fprintf(fd, "%d %lf\n", k, (double)(post - pre) / CLOCKS_PER_SEC);
+    fprintf(fd, "%d %lf\n", n, (double)(post - pre) / CLOCKS_PER_SEC);
   }
 
   for (int i = 0; i < repeat; i++) mpz_clear(ranks[i]);
