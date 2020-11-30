@@ -130,22 +130,11 @@ void unrank_combinadics2_memo(int* dest, int n, int k, const mpz_t rank) {
  * Factoridcs-based algorithm with memoisation 
  */
 
-static void extract(int* dest, const int* F, int n, int k) {
-  tree* P = tree_make(0, n - 1);
-  for (int i = 0; i < k; i++) {
-    dest[i] = tree_pop(P, F[n - 1 - i]);
-  }
-  tree_clear(P);
-}
+void unrank_factoradics_memo(int* dest, int n, int k, const mpz_t rank) {
+  mpz_t u, b;
 
-static void rank_conversion_memo(mpz_t dest, int n, int k, const mpz_t rank) {
-  mpz_t fac, u, b;
-
-  mpz_init(fac);
-  mpz_fac_ui(fac, n);
   mpz_init(b);
   mpz_init_set(u, rank);
-  mpz_set_ui(dest, 0);
 
   int m = 0;
   int i = 0;
@@ -154,8 +143,7 @@ static void rank_conversion_memo(mpz_t dest, int n, int k, const mpz_t rank) {
     // mpz_bin_uiui(b, n - 1 - m, k - 1 - i);
     binomial(b, n - 1 - m, k - 1 - i);
     if (mpz_cmp(u, b) < 0) {
-      mpz_divexact_ui(fac, fac, n);
-      mpz_addmul_ui(dest, fac, m);
+      dest[i] = m + i;
       i++;
       n--;
     } else {
@@ -164,20 +152,8 @@ static void rank_conversion_memo(mpz_t dest, int n, int k, const mpz_t rank) {
     }
   }
 
-  mpz_clear(fac);
   mpz_clear(u);
   mpz_clear(b);
-}
-
-void unrank_factoradics_memo(int* dest, int n, int k, const mpz_t rank) {
-  mpz_t u;
-  mpz_init(u);
-  rank_conversion_memo(u, n, k, rank);
-  int* F = calloc(n, sizeof(int));
-  factoradic_decomp(F, n, u);
-  extract(dest, F, n, k);
-  mpz_clear(u);
-  free(F);
 }
 
 /*
