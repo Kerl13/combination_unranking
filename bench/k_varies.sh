@@ -23,9 +23,9 @@ get_color () {
   if [ "${1#*recursive}" != "$1" ]; then
     echo "red"
   elif [ "${1#*combinadics2}" != "$1" ]; then
-    echo "#6494ee"
-  elif [ "${1#*combinadics}" != "$1" ]; then
     echo "#7b4000"
+  elif [ "${1#*combinadics}" != "$1" ]; then
+    echo "#6494ee"
   elif [ "${1#*factoradics}" != "$1" ]; then
     echo "#004521"
   else
